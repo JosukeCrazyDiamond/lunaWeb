@@ -1,10 +1,32 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
-#root page
+posts = [
+    {
+        'author': 'Luna',
+        'title': 'My First Title',
+        'content': 'Hello World!',
+        'date': 'September 30th, 2018'
+    },
+    {
+        'author': 'Luna',
+        'title': 'My Second Title',
+        'content': 'Hello World Again!',
+        'date': 'September 31st, 2018'
+    }
+]
+
+
 @app.route('/')
 def hello():
-    return 'this is a Flask'
+    return render_template('home.html', posts=posts)
 
-app.run('0.0.0.0', debug=True)
+
+@app.route('/about')
+def about():
+    return render_template('about.html', title='about')
+
+
+if __name__ == '__main__':
+    app.run('0.0.0.0', debug=True)
